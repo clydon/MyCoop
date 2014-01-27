@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.webkit.WebView;
+
 
 public class MainActivity extends Activity {
 
@@ -17,6 +19,12 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        String url = "file:///assets/index.html";
+        WebView view = (WebView) this.findViewById(R.id.webView);
+
+        view.getSettings().setJavaScriptEnabled(true);
+        view.loadUrl(url);
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
