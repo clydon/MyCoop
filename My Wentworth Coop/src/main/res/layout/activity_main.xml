@@ -6,12 +6,9 @@
     tools:context="com.ccdevelopment.mywentworthcoop.MainActivity"
     tools:ignore="MergeRootFrame" >
 
-    <TextView
-        android:text="@string/hello_world"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/textView"
-        android:layout_gravity="left|center_vertical" />
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/webView"
+        android:layout_gravity="left|top" />
 </FrameLayout>
