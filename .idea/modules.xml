@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/My Wentworth Coop/My Wentworth Coop.iml" filepath="$PROJECT_DIR$/My Wentworth Coop/My Wentworth Coop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MyCoop.iml" filepath="$PROJECT_DIR$/MyCoop.iml" />
+    </modules>
+  </component>
+</project>
+
