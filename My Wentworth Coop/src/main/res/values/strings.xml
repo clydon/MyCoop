@@ -4,11 +4,11 @@
     <string name="app_name">My Coop</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="actionMainText">Main Activity</string>
-    <string name="actionLoginText">Login Activity</string>
-    <string name="actionPhotoVideoText">Photo/Video Activity</string>
-    <string name="actionJournalText">Journal Activity</string>
-    <string name="actionPeopleText">People Activity</string>
-    <string name="actionAssignmentsText">Assignments Activity</string>
+    <string name="action_main">Main Activity</string>
+    <string name="action_login">Login Activity</string>
+    <string name="action_photovideo">Photo/Video Activity</string>
+    <string name="action_journal">Journal Activity</string>
+    <string name="action_people">People Activity</string>
+    <string name="action_assignments">Assignments Activity</string>
 
 </resources>

@@ -4,11 +4,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.ccdevelopment.mywentworthcoop.MainActivity"
-    tools:ignore="MergeRootFrame" >
+    tools:ignore="MergeRootFrame"
+    android:background="@android:color/background_dark">
 
-    <WebView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/webView"
-        android:layout_gravity="left|top" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="@dimen/activity_horizontal_margin">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+
+            <WebView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/webViewPhotoVideo"
+                android:layout_weight="1" />
+
+            <WebView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/webViewJournal"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1">
+
+            <WebView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/webViewPeople"
+                android:layout_weight="1" />
+
+            <WebView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/webViewAssignments"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </LinearLayout>
+
 </FrameLayout>

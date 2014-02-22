@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class AssignmentsActivity extends Activity {
 
@@ -71,11 +72,13 @@ public class AssignmentsActivity extends Activity {
         return sb.toString();
     }
 
+
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
 
-        MenuItem item1 = menu.findItem(R.id.action_main);
+        MenuItem item1 = menu.findItem(R.id.action_mainmenu);
         Intent intent1 = new Intent(this, MainActivity.class );
         item1.setIntent(intent1);
 
@@ -107,9 +110,40 @@ public class AssignmentsActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        return id == R.id.action_settings || super.onOptionsItemSelected(item);
+
+        switch (item.getItemId()) {
+            case R.id.action_mainmenu:
+                startActivity(new Intent(this, MainActivity.class));
+                return true;
+
+            case R.id.action_login:
+                startActivity(new Intent(this, LoginActivity.class));
+                return true;
+
+            case R.id.action_photoVideo:
+                startActivity(new Intent(this, PhotoVideoActivity.class));
+                return true;
+
+            case R.id.action_journal:
+                startActivity(new Intent(this, JournalActivity.class));
+                return true;
+
+            case R.id.action_people:
+                startActivity(new Intent(this, PeopleActivity.class));
+                return true;
+
+            case R.id.action_assignments:
+                startActivity(new Intent(this, AssignmentsActivity.class));
+                return true;
+
+            case R.id.action_settings:
+                Toast.makeText(getBaseContext(), "Settings", Toast.LENGTH_LONG).show();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
+*/
+
 
 
 }
