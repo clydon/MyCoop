@@ -2,11 +2,15 @@ package com.ccdevelopment.mywentworthcoop;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -14,7 +18,7 @@ import android.widget.Toast;
 
 
 public class MainActivity extends Activity {
-
+    long startTime;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +46,82 @@ public class MainActivity extends Activity {
 
         // view.getSettings().setJavaScriptEnabled(true);
 
+        viewPhotoVideo.setOnTouchListener(new View.OnTouchListener() {
+            //long startTime;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN)
+                    startTime = System.nanoTime();
+
+                if(event.getAction() == MotionEvent.ACTION_UP){
+                    long elapseTime = (System.nanoTime() - startTime) / 1000000;
+                    if (elapseTime > 500){ // long press
+                        Intent myIntent = new Intent(MainActivity.this, PhotoVideoActivity.class);
+                        startActivity(myIntent);
+                    } else { // short press
+
+                    }
+                    return true;
+                }   return false;
+            }
+        });
+
+        viewJournal.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN)
+                    startTime = System.nanoTime();
+
+                if(event.getAction() == MotionEvent.ACTION_UP){
+                    long elapseTime = (System.nanoTime() - startTime) / 1000000;
+                    if (elapseTime > 500){ // long press
+                        Intent myIntent = new Intent(MainActivity.this, JournalActivity.class);
+                        startActivity(myIntent);
+                    } else { // short press
+
+                    }
+                    return true;
+                }   return false;
+            }
+        });
+
+        viewPeople.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN)
+                    startTime = System.nanoTime();
+
+                if(event.getAction() == MotionEvent.ACTION_UP){
+                    long elapseTime = (System.nanoTime() - startTime) / 1000000;
+                    if (elapseTime > 500){ // long press
+                        Intent myIntent = new Intent(MainActivity.this, PeopleActivity.class);
+                        startActivity(myIntent);
+                    } else { // short press
+
+                    }
+                    return true;
+                }   return false;
+            }
+        });
+
+        viewAssignments.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN)
+                    startTime = System.nanoTime();
+
+                if(event.getAction() == MotionEvent.ACTION_UP){
+                    long elapseTime = (System.nanoTime() - startTime) / 1000000;
+                    if (elapseTime > 500){ // long press
+                        Intent myIntent = new Intent(MainActivity.this, AssignmentsActivity.class);
+                        startActivity(myIntent);
+                    } else { // short press
+
+                    }
+                    return true;
+                }   return false;
+            }
+        });
     }
 
 
@@ -113,10 +193,6 @@ public class MainActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-
-
 
     /**
      * A placeholder fragment containing a simple view.
