@@ -31,10 +31,8 @@ import android.widget.Toast;
 
 public class LoginActivity extends Activity {
     EditText etUser, etPass;
-
     String username, password;
     HttpClient httpClient;
-
     HttpPost httpPost;
     ArrayList<NameValuePair> nameValuePairs;
     HttpResponse response;
