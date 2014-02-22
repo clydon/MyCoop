@@ -18,11 +18,13 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -30,11 +32,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity {
-    EditText etUser, etPass;
+    EditText editTextUser, editTextPass;
+    Button buttonSubmit;
     String username, password;
+    ArrayList<NameValuePair> nameValuePairs;
     HttpClient httpClient;
     HttpPost httpPost;
-    ArrayList<NameValuePair> nameValuePairs;
     HttpResponse response;
     HttpEntity httpEntity;
 
@@ -49,11 +52,11 @@ public class LoginActivity extends Activity {
             StrictMode.setThreadPolicy(policy);
         }
 
-        etUser = (EditText) findViewById(R.id.fieldUser);
-        etPass = (EditText) findViewById(R.id.fieldPass);
-        Button btn_submit = (Button) findViewById(R.id.btnSign);
+        editTextUser = (EditText) findViewById(R.id.fieldUser);
+        editTextPass = (EditText) findViewById(R.id.fieldPass);
+        buttonSubmit = (Button) findViewById(R.id.btnSign);
 
-        btn_submit.setOnClickListener(new OnClickListener() {
+        buttonSubmit.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 new DoPostRequestAsync().execute();
@@ -70,8 +73,8 @@ public class LoginActivity extends Activity {
             httpClient = new DefaultHttpClient();
             httpPost = new HttpPost("http://10.0.0.4/web/index.php");
 
-            username = etUser.getText().toString();
-            password = etPass.getText().toString();
+            username = editTextUser.getText().toString();
+            password = editTextPass.getText().toString();
 
             try {
                 nameValuePairs = new ArrayList<NameValuePair>();
@@ -144,11 +147,45 @@ public class LoginActivity extends Activity {
         return sb.toString();
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+        MenuItem item1 = menu.findItem(R.id.action_main);
+        Intent intent1 = new Intent(this, MainActivity.class );
+        item1.setIntent(intent1);
+
+        MenuItem item2 = menu.findItem(R.id.action_login);
+        Intent intent2 = new Intent(this, LoginActivity.class );
+        item2.setIntent(intent2);
+
+        MenuItem item3 = menu.findItem(R.id.action_login);
+        Intent intent3 = new Intent(this, PhotoVideoActivity.class );
+        item3.setIntent(intent3);
+
+        MenuItem item4 = menu.findItem(R.id.action_login);
+        Intent intent4 = new Intent(this, JournalActivity.class );
+        item4.setIntent(intent4);
+
+        MenuItem item5 = menu.findItem(R.id.action_login);
+        Intent intent5 = new Intent(this, PeopleActivity.class );
+        item5.setIntent(intent5);
+
+        MenuItem item6 = menu.findItem(R.id.action_login);
+        Intent intent6 = new Intent(this, AssignmentsActivity.class );
+        item6.setIntent(intent6);
+
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
 }

@@ -2,9 +2,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.ccdevelopment.mywentworthcoop.MainActivity" >
     
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+    <item android:id="@+id/action_main"
+        android:title="@string/actionMainText"
         android:showAsAction="never" />
     <item android:id="@+id/action_login"
-        android:title="Login Screen" />
+        android:title="@string/actionLoginText" />
+    <item android:id="@+id/action_photoVideo"
+        android:title="@string/actionPhotoVideoText" />
+    <item android:id="@+id/action_journal"
+        android:title="@string/actionJournalText" />
+    <item android:id="@+id/action_people"
+        android:title="@string/actionPeopleText" />
+    <item android:id="@+id/action_assignments"
+        android:title="@string/actionAssignmentsText" />
 </menu>
