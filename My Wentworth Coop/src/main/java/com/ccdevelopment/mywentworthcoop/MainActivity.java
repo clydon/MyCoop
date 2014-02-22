@@ -2,6 +2,7 @@ package com.ccdevelopment.mywentworthcoop;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -34,9 +35,16 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+        MenuItem item1 = menu.findItem(R.id.action_login);
+        Intent intent1 = new Intent(this, LoginActivity.class );
+        item1.setIntent(intent1);
+
+        MenuItem item2 = menu.findItem(R.id.action_settings);
+        /*Intent intent2 = new Intent(this, A.class);
+        item2.setIntent(intent2);*/
+
         return true;
     }
 
