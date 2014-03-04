@@ -22,6 +22,9 @@
         android:id="@+id/action_assignments"
         android:title="@string/action_assignments" />
     <item
+        android:id="@+id/action_viewpager"
+        android:title="@string/action_viewpager" />
+    <item
         android:id="@+id/action_settings"
         android:title="@string/action_settings" />
 </menu>

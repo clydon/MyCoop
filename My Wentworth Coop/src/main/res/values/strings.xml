@@ -10,5 +10,10 @@
     <string name="action_journal">Journal Activity</string>
     <string name="action_people">People Activity</string>
     <string name="action_assignments">Assignments Activity</string>
+    <string name="title_section1">Photo Video</string>
+    <string name="title_section2">Journal</string>
+    <string name="title_section3">People</string>
+    <string name="title_section4">Assignments</string>
+    <string name="action_viewpager">View Pager</string>
 
 </resources>

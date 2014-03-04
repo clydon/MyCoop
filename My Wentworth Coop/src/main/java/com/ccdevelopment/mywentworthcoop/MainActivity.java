@@ -1,18 +1,12 @@
 package com.ccdevelopment.mywentworthcoop;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.view.GestureDetector;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Toast;
 
@@ -25,12 +19,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         loadWebViews();
-
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
-                    .commit();
-        }
     }
 
     private void loadWebViews() {
@@ -44,6 +32,8 @@ public class MainActivity extends Activity {
         viewPeople.loadUrl("file:///android_asset/index3.html");
         viewAssignments.loadUrl("file:///android_asset/index4.html");
 
+        final int longPressTime = 500;
+
         // view.getSettings().setJavaScriptEnabled(true);
 
         viewPhotoVideo.setOnTouchListener(new View.OnTouchListener() {
@@ -55,8 +45,9 @@ public class MainActivity extends Activity {
 
                 if(event.getAction() == MotionEvent.ACTION_UP){
                     long elapseTime = (System.nanoTime() - startTime) / 1000000;
-                    if (elapseTime > 500){ // long press
-                        Intent myIntent = new Intent(MainActivity.this, PhotoVideoActivity.class);
+                    if (elapseTime > longPressTime){ // long press
+                        Intent myIntent = new Intent(MainActivity.this, ViewPagerActivity.class);
+                        myIntent.putExtra("FirstTab", 0);
                         startActivity(myIntent);
                     } else { // short press
 
@@ -74,8 +65,9 @@ public class MainActivity extends Activity {
 
                 if(event.getAction() == MotionEvent.ACTION_UP){
                     long elapseTime = (System.nanoTime() - startTime) / 1000000;
-                    if (elapseTime > 500){ // long press
-                        Intent myIntent = new Intent(MainActivity.this, JournalActivity.class);
+                    if (elapseTime > longPressTime){ // long press
+                        Intent myIntent = new Intent(MainActivity.this, ViewPagerActivity.class);
+                        myIntent.putExtra("FirstTab", 1);
                         startActivity(myIntent);
                     } else { // short press
 
@@ -93,8 +85,9 @@ public class MainActivity extends Activity {
 
                 if(event.getAction() == MotionEvent.ACTION_UP){
                     long elapseTime = (System.nanoTime() - startTime) / 1000000;
-                    if (elapseTime > 500){ // long press
-                        Intent myIntent = new Intent(MainActivity.this, PeopleActivity.class);
+                    if (elapseTime > longPressTime){ // long press
+                        Intent myIntent = new Intent(MainActivity.this, ViewPagerActivity.class);
+                        myIntent.putExtra("FirstTab", 2);
                         startActivity(myIntent);
                     } else { // short press
 
@@ -112,8 +105,9 @@ public class MainActivity extends Activity {
 
                 if(event.getAction() == MotionEvent.ACTION_UP){
                     long elapseTime = (System.nanoTime() - startTime) / 1000000;
-                    if (elapseTime > 500){ // long press
-                        Intent myIntent = new Intent(MainActivity.this, AssignmentsActivity.class);
+                    if (elapseTime > longPressTime){ // long press
+                        Intent myIntent = new Intent(MainActivity.this, ViewPagerActivity.class);
+                        myIntent.putExtra("FirstTab", 3);
                         startActivity(myIntent);
                     } else { // short press
 
@@ -153,6 +147,10 @@ public class MainActivity extends Activity {
         Intent intent6 = new Intent(this, AssignmentsActivity.class );
         item6.setIntent(intent6);
 
+        MenuItem item7 = menu.findItem(R.id.action_viewpager);
+        Intent intent7 = new Intent(this, ViewPagerActivity.class );
+        item7.setIntent(intent7);
+
         return true;
     }
 
@@ -187,26 +185,14 @@ public class MainActivity extends Activity {
                 startActivity(new Intent(this, AssignmentsActivity.class));
                 return true;
 
+            case R.id.action_viewpager:
+                startActivity(new Intent(this, ViewPagerActivity.class));
+                return true;
+
             case R.id.action_settings:
                 Toast.makeText(getBaseContext(), "Settings", Toast.LENGTH_LONG).show();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.fragment_main, container, false);
-        }
-    }
-
 }
