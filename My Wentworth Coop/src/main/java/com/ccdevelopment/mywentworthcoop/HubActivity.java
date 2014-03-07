@@ -141,19 +141,19 @@ public class HubActivity extends Activity {
         Intent intent2 = new Intent(this, LoginActivity.class );
         item2.setIntent(intent2);
 
-        MenuItem item3 = menu.findItem(R.id.action_login);
+        MenuItem item3 = menu.findItem(R.id.action_photoVideo);
         Intent intent3 = new Intent(this, PhotoVideoActivity.class );
         item3.setIntent(intent3);
 
-        MenuItem item4 = menu.findItem(R.id.action_login);
+        MenuItem item4 = menu.findItem(R.id.action_journal);
         Intent intent4 = new Intent(this, JournalActivity.class );
         item4.setIntent(intent4);
 
-        MenuItem item5 = menu.findItem(R.id.action_login);
+        MenuItem item5 = menu.findItem(R.id.action_people);
         Intent intent5 = new Intent(this, PeopleActivity.class );
         item5.setIntent(intent5);
 
-        MenuItem item6 = menu.findItem(R.id.action_login);
+        MenuItem item6 = menu.findItem(R.id.action_assignments);
         Intent intent6 = new Intent(this, AssignmentsActivity.class );
         item6.setIntent(intent6);
 
@@ -201,7 +201,7 @@ public class HubActivity extends Activity {
 
             case R.id.action_logout:
                 ParseUser.logOut();
-                startActivity(new Intent(this, MainActivity.class));
+                finish();
                 Toast.makeText(getBaseContext(), "Logged Out!", Toast.LENGTH_LONG).show();
                 return true;
         }

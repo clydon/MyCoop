@@ -13,6 +13,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.parse.ParseUser;
 
 public class ViewPagerActivity extends FragmentActivity {
 
@@ -75,8 +78,36 @@ public class ViewPagerActivity extends FragmentActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
+//        MenuItem item1 = menu.findItem(R.id.action_mainmenu);
+//        Intent intent1 = new Intent(this, MainActivity.class );
+//        item1.setIntent(intent1);
+
+        MenuItem item2 = menu.findItem(R.id.action_login);
+        Intent intent2 = new Intent(this, LoginActivity.class );
+        item2.setIntent(intent2);
+
+        MenuItem item3 = menu.findItem(R.id.action_photoVideo);
+        Intent intent3 = new Intent(this, PhotoVideoActivity.class );
+        item3.setIntent(intent3);
+
+        MenuItem item4 = menu.findItem(R.id.action_journal);
+        Intent intent4 = new Intent(this, JournalActivity.class );
+        item4.setIntent(intent4);
+
+        MenuItem item5 = menu.findItem(R.id.action_people);
+        Intent intent5 = new Intent(this, PeopleActivity.class );
+        item5.setIntent(intent5);
+
+        MenuItem item6 = menu.findItem(R.id.action_assignments);
+        Intent intent6 = new Intent(this, AssignmentsActivity.class );
+        item6.setIntent(intent6);
+
+        MenuItem item7 = menu.findItem(R.id.action_viewpager);
+        Intent intent7 = new Intent(this, ViewPagerActivity.class );
+        item7.setIntent(intent7);
+
         return true;
     }
 
@@ -85,9 +116,35 @@ public class ViewPagerActivity extends FragmentActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_logout) {
-            return true;
+
+        switch (item.getItemId()) {
+//            case R.id.action_mainmenu:
+//                startActivity(new Intent(this, MainActivity.class));
+//                return true;
+
+            case R.id.action_login:
+                startActivity(new Intent(this, LoginActivity.class));
+                return true;
+
+            case R.id.action_photoVideo:
+                startActivity(new Intent(this, PhotoVideoActivity.class));
+                return true;
+
+            case R.id.action_journal:
+                startActivity(new Intent(this, JournalActivity.class));
+                return true;
+
+            case R.id.action_people:
+                startActivity(new Intent(this, PeopleActivity.class));
+                return true;
+
+            case R.id.action_assignments:
+                startActivity(new Intent(this, AssignmentsActivity.class));
+                return true;
+
+            case R.id.action_viewpager:
+                startActivity(new Intent(this, ViewPagerActivity.class));
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

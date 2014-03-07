@@ -15,7 +15,7 @@ public class MainActivity extends Activity{
         super.onCreate(savedInstanceState);
 
         // Add your initialization code here
-        Parse.initialize(this, "NeH8b4NyEe14XJgwW6M66SweK1FIrXsMmkjr50wm", "a4vqiIEQd0zkr0l5D1y2umIC3wi8CZtvZYvc2Jhd");
+        Parse.initialize(this, "PRAaLniiM3AEYwNNwwm16fsPRq0oHiCOyRwl8cK3", "kcLgMl4JcEJItdSij3xe3eiMV2pcARhbPoSSCPtV");
 
         ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();
