@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 
-public class FragmentC extends Fragment {
+public class FragmentPhotoVideo extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -21,8 +21,11 @@ public class FragmentC extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_c, container, false);
+        return inflater.inflate(R.layout.fragment_a, container, false);
+
     }
+
 }

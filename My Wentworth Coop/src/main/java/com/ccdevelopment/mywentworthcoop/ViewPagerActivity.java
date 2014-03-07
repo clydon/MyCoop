@@ -86,7 +86,7 @@ public class ViewPagerActivity extends FragmentActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_logout) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -107,19 +107,19 @@ public class ViewPagerActivity extends FragmentActivity {
             Fragment fragment = null;
             if(position == 0){
 
-                fragment = new FragmentA();
+                fragment = new FragmentPhotoVideo();
             }
             if(position == 1){
 
-                fragment = new FragmentB();
+                fragment = new FragmentJournal();
             }
             if(position == 2){
 
-                fragment = new FragmentC();
+                fragment = new FragmentPeople();
             }
             if(position == 3){
 
-                fragment = new FragmentD();
+                fragment = new FragmentAssignments();
             }
             return fragment;
         }

@@ -2,8 +2,7 @@
 <resources>
 
     <string name="app_name">My Coop</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_logout">Log Out</string>
     <string name="action_main">Main Activity</string>
     <string name="action_login">Login Activity</string>
     <string name="action_photovideo">Photo/Video Activity</string>
@@ -15,5 +14,7 @@
     <string name="title_section3">People</string>
     <string name="title_section4">Assignments</string>
     <string name="action_viewpager">View Pager</string>
+    <string name="button_signup">Sign Up</string>
+    <string name="button_login">Login</string>
 
 </resources>
