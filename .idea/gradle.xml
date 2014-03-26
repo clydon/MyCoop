@@ -7,8 +7,8 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/My Wentworth Coop" />
+            <option value="C:\Users\Conor\Dropbox\MyCoop" />
+            <option value="C:\Users\Conor\Dropbox\MyCoop\My Wentworth Coop" />
           </set>
         </option>
       </GradleProjectSettings>

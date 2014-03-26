@@ -15,7 +15,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 public class ViewPagerActivity extends FragmentActivity {
 
@@ -118,9 +121,9 @@ public class ViewPagerActivity extends FragmentActivity {
         // as you specify a parent activity in AndroidManifest.xml.
 
         switch (item.getItemId()) {
-//            case R.id.action_mainmenu:
-//                startActivity(new Intent(this, MainActivity.class));
-//                return true;
+            case R.id.action_mainmenu:
+
+                return true;
 
             case R.id.action_login:
                 startActivity(new Intent(this, LoginActivity.class));
