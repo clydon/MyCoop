@@ -31,4 +31,12 @@
         android:ems="10"
         android:id="@+id/editText2"
         android:layout_weight="0.20" />
+
+    <Switch
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Private Post:"
+        android:id="@+id/switchPrivate"
+        android:checked="true" />
+
 </LinearLayout>

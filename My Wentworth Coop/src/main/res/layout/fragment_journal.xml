@@ -11,7 +11,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Insert"
+        android:text="New Journal Entry"
         android:id="@+id/buttonPut"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
