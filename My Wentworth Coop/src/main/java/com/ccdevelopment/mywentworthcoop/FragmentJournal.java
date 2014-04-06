@@ -28,62 +28,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentJournal extends Fragment {
-    // Declare Variables
     ListView listview;
     List<ParseObject> ob;
     ProgressDialog mProgressDialog;
     ListViewAdapter adapter;
     private List<JournalPost> journalPostList = null;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         new RemoteDataTask().execute();
 
         if (savedInstanceState == null){
             // onCreate First Time
-
         } else {
             // onCreate Subsequent Time
-
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_journal, container, false);
-
-//        final ParseQueryAdapter<ParseObject> adapter = new ParseQueryAdapter<ParseObject>(getActivity(), "Post");
-//        adapter.setTextKey("Title");
-/*
-
-        ParseQueryAdapter<ParseObject> adapter =
-                new ParseQueryAdapter<ParseObject>(getActivity(), new ParseQueryAdapter.QueryFactory<ParseObject>() {
-                    public ParseQuery<ParseObject> create() {
-                        ParseQuery query = new ParseQuery("Post");
-                        query.whereEqualTo("user", ParseUser.getCurrentUser());
-                        query.orderByDescending("updatedAt");
-                        return query;
-                    }
-                });
-
-        final ListView listView = (ListView) view.findViewById(R.id.listView);
-        listView.setAdapter(adapter);
-        listView.setClickable(true);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-
-                Object o = listView.getItemAtPosition(position);
-
-            }
-        });
-*/
-
 
         Button button = (Button) view.findViewById(R.id.buttonPut);
         button.setOnClickListener(new View.OnClickListener()
@@ -129,12 +94,10 @@ public class FragmentJournal extends Fragment {
                                             Intent myIntent = new Intent(getActivity(), ViewPagerActivity.class);
                                             myIntent.putExtra("FirstTab", 1);
                                             startActivity(myIntent);
-                                        } else {
+                                        } else
                                             Toast.makeText(getActivity(),"Something went wrong!",Toast.LENGTH_SHORT).show();
-                                        }
                                     }
                                 });
-
                             }
                         })
                 .setNegativeButton("Cancel",
@@ -146,32 +109,23 @@ public class FragmentJournal extends Fragment {
         alert.show();
     }
 
-    // RemoteDataTask AsyncTask
     private class RemoteDataTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            // Create a progressdialog
             mProgressDialog = new ProgressDialog(getActivity());
-            // Set progressdialog title
-            mProgressDialog.setTitle("MyCo-Op Journal Posts");
-            // Set progressdialog message
+            mProgressDialog.setTitle("Loading MyCo-Op Data");
             mProgressDialog.setMessage("Loading...");
             mProgressDialog.setIndeterminate(false);
-            // Show progressdialog
-            mProgressDialog.show();
+            //mProgressDialog.show(); //todo
         }
 
         @Override
         protected Void doInBackground(Void... params) {
-            // Create the array
             journalPostList = new ArrayList<JournalPost>();
             try {
-                // Locate the class table named "Post" in Parse.com
-                ParseQuery<ParseObject> publicQuery = new ParseQuery<ParseObject>(
-                        "Post");
-                ParseQuery<ParseObject> privateQuery = new ParseQuery<ParseObject>(
-                        "Post");
+                ParseQuery<ParseObject> publicQuery = new ParseQuery<ParseObject>("Post");
+                ParseQuery<ParseObject> privateQuery = new ParseQuery<ParseObject>("Post");
 
                 privateQuery.whereEqualTo("user", ParseUser.getCurrentUser());
                 publicQuery.whereEqualTo("isPrivate", false);
@@ -201,15 +155,10 @@ public class FragmentJournal extends Fragment {
 
         @Override
         protected void onPostExecute(Void result) {
-            // Locate the listview in listview_main.xml
-            listview = (ListView) getView().findViewById(R.id.listView);
-            // Pass the results into ListViewAdapter.java
-            adapter = new ListViewAdapter(getActivity(),
-                    journalPostList);
-            // Binds the Adapter to the ListView
+            listview = (ListView) getActivity().findViewById(R.id.listView);
+            adapter = new ListViewAdapter(getActivity(), journalPostList);
             listview.setAdapter(adapter);
-            // Close the progressdialog
-            mProgressDialog.dismiss();
+            //mProgressDialog.dismiss(); //todo
         }
     }
 }

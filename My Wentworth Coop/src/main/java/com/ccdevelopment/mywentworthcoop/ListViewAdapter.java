@@ -3,26 +3,14 @@ package com.ccdevelopment.mywentworthcoop;
         import java.util.ArrayList;
         import java.util.List;
 
-        import android.app.AlertDialog;
         import android.content.Context;
-        import android.content.DialogInterface;
-        import android.content.Intent;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.View.OnClickListener;
         import android.view.ViewGroup;
         import android.widget.BaseAdapter;
-        import android.widget.EditText;
         import android.widget.Switch;
         import android.widget.TextView;
-        import android.widget.Toast;
-
-        import com.parse.ParseException;
-        import com.parse.ParseObject;
-        import com.parse.ParseUser;
-        import com.parse.SaveCallback;
-
-        import org.w3c.dom.Text;
 
 public class ListViewAdapter extends BaseAdapter {
 
@@ -68,7 +56,7 @@ public class ListViewAdapter extends BaseAdapter {
         final ViewHolder holder;
         if (view == null) {
             holder = new ViewHolder();
-            view = inflater.inflate(R.layout.listview_itemview, null);
+            view = inflater.inflate(R.layout.journal_row_item, null);
             // Locate the TextViews in listview_item.xml
             holder.title = (TextView) view.findViewById(R.id.textViewTitle);
             holder.description = (TextView) view.findViewById(R.id.textViewDescription);

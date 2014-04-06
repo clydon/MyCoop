@@ -76,6 +76,7 @@
         <activity
             android:name="com.ccdevelopment.mywentworthcoop.ViewPagerActivity"
             android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden"
             android:parentActivityName="com.ccdevelopment.mywentworthcoop.MainActivity" >
             <!-- Parent activity meta-data to support API level 7+ -->
             <meta-data
