@@ -12,29 +12,20 @@ android:orientation="vertical">
         android:gravity="center"
         android:textSize="28sp" />
 
-    <ImageView
-        android:id="@+id/imgPreview"
-        android:layout_width="fill_parent"
-        android:layout_height="300dp"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"/>
-
-    <Button
-        android:id="@+id/btnCamera"
+    <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imgPreview"
-        android:text="Take"/>
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="fill_parent"
-        android:layout_height="30dp"
-        android:text="Title"
-        android:layout_below="@+id/btnCamera"
-        android:textSize="18sp" />
-    <EditText
-        android:id="@+id/editTitleText"
-        android:layout_below="@+id/textView2"
+        android:id="@+id/listViewPhotos"
+        android:layout_below="@+id/textView1"
+        android:layout_alignParentLeft="true"
+        android:layout_above="@+id/buttonAddNew" />
+
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="Add New Photo"
+        android:id="@+id/buttonAddNew"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true" />
+
 </RelativeLayout>
