@@ -3,7 +3,6 @@ package com.ccdevelopment.mywentworthcoop;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Contacts;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,11 +21,11 @@ public class FragmentPeople extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootview = inflater.inflate(R.layout.fragment_people, container, false);
 
-        Button buttonsave = (Button) rootview.findViewById(R.id.btnSave);
-        Button buttonclear = (Button) rootview.findViewById(R.id.btnClear);
         final EditText mName = (EditText) rootview.findViewById(R.id.editName);
         final EditText mEmail = (EditText) rootview.findViewById(R.id.editEmail);
         final EditText mPhone = (EditText) rootview.findViewById(R.id.editPhone);
+        Button buttonsave = (Button) rootview.findViewById(R.id.btnSave);
+        Button buttonclear = (Button) rootview.findViewById(R.id.btnClear);
 
         buttonsave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +50,5 @@ public class FragmentPeople extends Fragment {
             }
         });
         return rootview;
-
     }
-
 }

@@ -34,10 +34,11 @@ import com.parse.SaveCallback;
 
 public class FragmentPhotoVideo extends Fragment {
 
-    View rootView, dialog_layout;
+    View rootView;
+    View dialogView;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
-    byte[] takenPhoto;
-    Bitmap takenPhotoBmp;
+    byte[] snapshotByteArray;
+    Bitmap snapshotBmp;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,17 +54,16 @@ public class FragmentPhotoVideo extends Fragment {
                 };
 
         MyAdapter adapter = new MyAdapter(getActivity(), factory);
-
         adapter.setTextKey("Title");
         adapter.setImageKey("Photo");
 
         ListView listView = (ListView) rootView.findViewById(R.id.listViewPhotos);
         listView.setAdapter(adapter);
 
-        Button addNew = (Button) rootView.findViewById(R.id.buttonAddNew);
-        addNew.setOnClickListener(new View.OnClickListener(){
+        Button buttonCreateNewPhoto = (Button) rootView.findViewById(R.id.buttonAddNew);
+        buttonCreateNewPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
-        public void onClick(View v) {
+            public void onClick(View v) {
                 openNewPhotoDialog();
             }
         });
@@ -71,46 +71,12 @@ public class FragmentPhotoVideo extends Fragment {
         return rootView;
     }
 
-   private class MyAdapter extends ParseQueryAdapter<ParseObject> {
-        private Context context;
-
-        public MyAdapter(
-                Context context,
-                com.parse.ParseQueryAdapter.QueryFactory<ParseObject> queryFactory) {
-            super(context, queryFactory);
-            this.context = context;
-        }
-
-        @Override
-        public View getItemView(ParseObject object, View v, ViewGroup parent) {
-            if (v == null) {
-                v = View.inflate(this.context, R.layout.photo_row_item, null);
-            }
-            TextView titleView = (TextView) v.findViewById(R.id.textViewTitle);
-            titleView.setText(object.get("Title").toString());
-
-            TextView dateView = (TextView) v.findViewById(R.id.textViewDate);
-            dateView.setText(new SimpleDateFormat("MMM d, h:mm").format(object.getUpdatedAt()));
-
-            TextView authorView = (TextView) v.findViewById(R.id.textViewAuthor);
-            authorView.setText(object.get("username").toString());
-
-            ParseImageView imageView = (ParseImageView)v.findViewById(R.id.imageView);
-            ParseFile file = object.getParseFile("Photo");
-            if(file != null) {
-                imageView.setParseFile(file);
-                imageView.loadInBackground();
-            }
-            return v;
-        }
-    }
-
     private void openNewPhotoDialog() {
-        dialog_layout = getActivity().getLayoutInflater().inflate(R.layout.dialog_photo, null);
+        dialogView = getActivity().getLayoutInflater().inflate(R.layout.dialog_photo, null);
 
-        final EditText editText = (EditText) dialog_layout.findViewById(R.id.editTextTitle);
-        Button addPhoto = (Button) dialog_layout.findViewById(R.id.buttonTakePhoto);
-        addPhoto.setOnClickListener(new View.OnClickListener() {
+        final EditText editText = (EditText) dialogView.findViewById(R.id.editTextTitle);
+        Button buttonTakePhoto = (Button) dialogView.findViewById(R.id.buttonTakePhoto);
+        buttonTakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -120,18 +86,18 @@ public class FragmentPhotoVideo extends Fragment {
         });
 
         final AlertDialog.Builder db = new AlertDialog.Builder(getActivity());
-        db.setView(dialog_layout);
+        db.setView(dialogView);
         db.setTitle("Add New Photo");
         db.setPositiveButton("SAVE", new
                 DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        if(takenPhoto != null){
-                            saveScaledPhoto(takenPhoto, String.valueOf(editText.getText()));
+                        if (snapshotByteArray != null) {
+                            savePhoto(snapshotByteArray, String.valueOf(editText.getText()));
                         }
                     }
                 });
         db.setNegativeButton("CANCEL", new
-                DialogInterface.OnClickListener(){
+                DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
@@ -149,19 +115,19 @@ public class FragmentPhotoVideo extends Fragment {
                 bmp.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] byteArray = stream.toByteArray();
 
-                takenPhoto = byteArray;
-                takenPhotoBmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                snapshotByteArray = byteArray;
+                snapshotBmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
 
-                ImageView imageView = (ImageView) dialog_layout.findViewById(R.id.imagePreview);
-                imageView.setImageBitmap(takenPhotoBmp);
+                ImageView imageView = (ImageView) dialogView.findViewById(R.id.imagePreview);
+                imageView.setImageBitmap(snapshotBmp);
             }
         }
     }
 
-    private void saveScaledPhoto(final byte[] data, final String title) {
-        Bitmap mealImage = BitmapFactory.decodeByteArray(data, 0, data.length);
+    private void savePhoto(final byte[] data, final String title) {
+        Bitmap snapshotImage = BitmapFactory.decodeByteArray(data, 0, data.length);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        mealImage.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+        snapshotImage.compress(Bitmap.CompressFormat.JPEG, 100, bos);
 
         byte[] scaledData = bos.toByteArray();
 
@@ -195,5 +161,38 @@ public class FragmentPhotoVideo extends Fragment {
                 }
             }
         });
+    }
+
+    private class MyAdapter extends ParseQueryAdapter<ParseObject> {
+
+        private Context context;
+
+        public MyAdapter(Context context, com.parse.ParseQueryAdapter.QueryFactory<ParseObject> queryFactory) {
+            super(context, queryFactory);
+            this.context = context;
+        }
+
+        @Override
+        public View getItemView(ParseObject object, View v, ViewGroup parent) {
+            if (v == null) {
+                v = View.inflate(this.context, R.layout.photo_row_item, null);
+            }
+            TextView titleView = (TextView) v.findViewById(R.id.textViewTitle);
+            titleView.setText(object.get("Title").toString());
+
+            TextView dateView = (TextView) v.findViewById(R.id.textViewDate);
+            dateView.setText(new SimpleDateFormat("MMM d, h:mm").format(object.getUpdatedAt()));
+
+            TextView authorView = (TextView) v.findViewById(R.id.textViewAuthor);
+            authorView.setText(object.get("username").toString());
+
+            ParseImageView imageView = (ParseImageView)v.findViewById(R.id.imageView);
+            ParseFile file = object.getParseFile("Photo");
+            if(file != null) {
+                imageView.setParseFile(file);
+                imageView.loadInBackground();
+            }
+            return v;
+        }
     }
 }

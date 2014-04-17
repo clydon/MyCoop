@@ -4,14 +4,11 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +35,7 @@ import java.util.Date;
 import java.util.List;
 
 public class FragmentAssignments extends Fragment {
+
     EditText mAssignmentInput;
     ListView mListView;
     AssignmentAdapter mAdapter;
@@ -149,7 +147,6 @@ public class FragmentAssignments extends Fragment {
         return rootView;
     }
 
-
     public void createAssignment() {
         if (mAssignmentInput.getText().length() > 0) {
             Calendar c = Calendar.getInstance();
@@ -187,7 +184,7 @@ public class FragmentAssignments extends Fragment {
         mProgressDialog.setTitle("MyCo-Op Assignments");
         mProgressDialog.setMessage("Loading...");
         mProgressDialog.setIndeterminate(false);
-        mProgressDialog.show();
+        //mProgressDialog.show(); todo remove excess code involving progress dialog
 
         ParseQuery<Assignment> publicQuery = ParseQuery.getQuery(Assignment.class);
         ParseQuery<Assignment> privateQuery = ParseQuery.getQuery(Assignment.class);

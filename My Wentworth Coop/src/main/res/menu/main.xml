@@ -1,29 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.ccdevelopment.mywentworthcoop.MainActivity" >
-    
-    <item
-        android:id="@+id/action_mainmenu"
-        android:title="@string/action_main"
-        android:showAsAction="never" />
-    <item
-        android:id="@+id/action_login"
-        android:title="@string/action_login" />
-    <item
-        android:id="@+id/action_photoVideo"
-        android:title="@string/action_photovideo" />
-    <item
-        android:id="@+id/action_journal"
-        android:title="@string/action_journal" />
-    <item
-        android:id="@+id/action_people"
-        android:title="@string/action_people" />
-    <item
-        android:id="@+id/action_assignments"
-        android:title="@string/action_assignments" />
-    <item
-        android:id="@+id/action_viewpager"
-        android:title="@string/action_viewpager" />
+
     <item
         android:id="@+id/action_logout"
         android:title="@string/action_logout" />

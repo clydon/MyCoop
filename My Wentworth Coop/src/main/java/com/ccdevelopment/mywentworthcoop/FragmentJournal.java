@@ -28,10 +28,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentJournal extends Fragment {
+
     ListView listview;
     List<ParseObject> ob;
     ProgressDialog mProgressDialog;
-    ListViewAdapter adapter;
+    JournalAdapter adapter;
     private List<JournalPost> journalPostList = null;
 
     @Override
@@ -156,7 +157,7 @@ public class FragmentJournal extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             listview = (ListView) getActivity().findViewById(R.id.listView);
-            adapter = new ListViewAdapter(getActivity(), journalPostList);
+            adapter = new JournalAdapter(getActivity(), journalPostList);
             listview.setAdapter(adapter);
             //mProgressDialog.dismiss(); //todo
         }

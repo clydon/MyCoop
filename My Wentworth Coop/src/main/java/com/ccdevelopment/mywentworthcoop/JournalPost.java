@@ -1,6 +1,7 @@
 package com.ccdevelopment.mywentworthcoop;
 
 public class JournalPost {
+
     private String title;
     private String description;
     private String date;

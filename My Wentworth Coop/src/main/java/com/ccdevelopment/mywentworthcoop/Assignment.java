@@ -1,12 +1,13 @@
 package com.ccdevelopment.mywentworthcoop;
 
 import com.parse.ParseClassName;
-        import com.parse.ParseObject;
+import com.parse.ParseObject;
 
 import java.util.Date;
 
 @ParseClassName("Assignment")
 public class Assignment extends ParseObject{
+
     public Assignment(){
 
     }

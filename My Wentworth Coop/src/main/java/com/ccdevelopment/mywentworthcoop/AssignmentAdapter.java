@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 public class AssignmentAdapter extends ArrayAdapter<Assignment> {
+
     private Context mContext;
     private List<Assignment> mAssignments;
 
@@ -29,18 +30,18 @@ public class AssignmentAdapter extends ArrayAdapter<Assignment> {
             convertView = mLayoutInflater.inflate(R.layout.assignment_row_item, null);
         }
 
-        Assignment task = mAssignments.get(position);
+        Assignment assignment = mAssignments.get(position);
 
         TextView descriptionView = (TextView) convertView.findViewById(R.id.assignment_description);
-        descriptionView.setText(task.getDescription());
+        descriptionView.setText(assignment.getDescription());
 
         TextView dueDateView = (TextView) convertView.findViewById(R.id.assignment_duedate);
-        dueDateView.setText(new SimpleDateFormat("EEE, MMM d").format(task.getDueDate()));
+        dueDateView.setText(new SimpleDateFormat("EEE, MMM d").format(assignment.getDueDate()));
 
         TextView authorView = (TextView) convertView.findViewById(R.id.assignment_author);
-        authorView.setText(task.getUsername());
+        authorView.setText(assignment.getUsername());
 
-        if(task.isCompleted()){
+        if(assignment.isCompleted()){
             descriptionView.setPaintFlags(descriptionView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             descriptionView.setTypeface(null, Typeface.NORMAL);
             dueDateView.setTypeface(null, Typeface.NORMAL);
@@ -48,7 +49,8 @@ public class AssignmentAdapter extends ArrayAdapter<Assignment> {
             descriptionView.setTextColor(Color.GRAY);
             dueDateView.setTextColor(Color.GRAY);
             authorView.setTextColor(Color.GRAY);
-        }else{
+        }
+        else{
             descriptionView.setPaintFlags(descriptionView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
             descriptionView.setTypeface(null, Typeface.BOLD);
             dueDateView.setTypeface(null, Typeface.BOLD);

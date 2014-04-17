@@ -3,13 +3,11 @@ package com.ccdevelopment.mywentworthcoop;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseAnonymousUtils;
 import com.parse.ParseUser;
 
 public class MainActivity extends Activity{
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,12 +18,9 @@ public class MainActivity extends Activity{
         ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();
 
-        // If you would like all objects to be private by default, remove this
-        // line.
         defaultACL.setPublicReadAccess(true);
 
         ParseACL.setDefaultACL(defaultACL, true);
-
 
         // Determine whether the current user is an anonymous user
         if (ParseAnonymousUtils.isLinked(ParseUser.getCurrentUser())) {

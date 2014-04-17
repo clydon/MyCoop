@@ -2,13 +2,7 @@
 <resources>
 
     <string name="app_name">My Coop</string>
-    <string name="action_logout">Exit &amp; Log Out</string>
-    <string name="action_main">Main Activity</string>
-    <string name="action_login">Login Activity</string>
-    <string name="action_photovideo">Photo/Video Activity</string>
-    <string name="action_journal">Journal Activity</string>
-    <string name="action_people">People Activity</string>
-    <string name="action_assignments">Assignments Activity</string>
+    <string name="action_logout">Log Out</string>
     <string name="title_section1">Photo Video</string>
     <string name="title_section2">Journal</string>
     <string name="title_section3">People</string>

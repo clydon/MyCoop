@@ -10,12 +10,13 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.Toast;
 
-import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 
 public class HubActivity extends Activity {
-    long startTime;
+
+    long time;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +26,7 @@ public class HubActivity extends Activity {
         ParseUser currentUser = ParseUser.getCurrentUser();
 
         // Convert currentUser into String
-        String struser = currentUser.getUsername().toString();
+        String struser = currentUser.getUsername();
 
         Toast.makeText(getBaseContext(), "Signed in as: " + struser, Toast.LENGTH_LONG).show();
 
@@ -48,14 +49,13 @@ public class HubActivity extends Activity {
         // view.getSettings().setJavaScriptEnabled(true);
 
         viewPhotoVideo.setOnTouchListener(new View.OnTouchListener() {
-            //long startTime;
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN)
-                    startTime = System.nanoTime();
+                    time = System.nanoTime();
 
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    long elapseTime = (System.nanoTime() - startTime) / 1000000;
+                    long elapseTime = (System.nanoTime() - time) / 1000000;
                     if (elapseTime > longPressTime){ // long press
                         Intent myIntent = new Intent(HubActivity.this, ViewPagerActivity.class);
                         myIntent.putExtra("FirstTab", 0);
@@ -72,10 +72,10 @@ public class HubActivity extends Activity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN)
-                    startTime = System.nanoTime();
+                    time = System.nanoTime();
 
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    long elapseTime = (System.nanoTime() - startTime) / 1000000;
+                    long elapseTime = (System.nanoTime() - time) / 1000000;
                     if (elapseTime > longPressTime){ // long press
                         Intent myIntent = new Intent(HubActivity.this, ViewPagerActivity.class);
                         myIntent.putExtra("FirstTab", 1);
@@ -92,10 +92,10 @@ public class HubActivity extends Activity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN)
-                    startTime = System.nanoTime();
+                    time = System.nanoTime();
 
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    long elapseTime = (System.nanoTime() - startTime) / 1000000;
+                    long elapseTime = (System.nanoTime() - time) / 1000000;
                     if (elapseTime > longPressTime){ // long press
                         Intent myIntent = new Intent(HubActivity.this, ViewPagerActivity.class);
                         myIntent.putExtra("FirstTab", 2);
@@ -112,10 +112,10 @@ public class HubActivity extends Activity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN)
-                    startTime = System.nanoTime();
+                    time = System.nanoTime();
 
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    long elapseTime = (System.nanoTime() - startTime) / 1000000;
+                    long elapseTime = (System.nanoTime() - time) / 1000000;
                     if (elapseTime > longPressTime){ // long press
                         Intent myIntent = new Intent(HubActivity.this, ViewPagerActivity.class);
                         myIntent.putExtra("FirstTab", 3);
@@ -133,73 +133,12 @@ public class HubActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-
-//        MenuItem item1 = menu.findItem(R.id.action_mainmenu);
-//        Intent intent1 = new Intent(this, MainActivity.class );
-//        item1.setIntent(intent1);
-
-        MenuItem item2 = menu.findItem(R.id.action_login);
-        Intent intent2 = new Intent(this, LoginActivity.class );
-        item2.setIntent(intent2);
-
-        MenuItem item3 = menu.findItem(R.id.action_photoVideo);
-        Intent intent3 = new Intent(this, PhotoVideoActivity.class );
-        item3.setIntent(intent3);
-
-        MenuItem item4 = menu.findItem(R.id.action_journal);
-        Intent intent4 = new Intent(this, JournalActivity.class );
-        item4.setIntent(intent4);
-
-        MenuItem item5 = menu.findItem(R.id.action_people);
-        Intent intent5 = new Intent(this, PeopleActivity.class );
-        item5.setIntent(intent5);
-
-        MenuItem item6 = menu.findItem(R.id.action_assignments);
-        Intent intent6 = new Intent(this, AssignmentsActivity.class );
-        item6.setIntent(intent6);
-
-        MenuItem item7 = menu.findItem(R.id.action_viewpager);
-        Intent intent7 = new Intent(this, ViewPagerActivity.class );
-        item7.setIntent(intent7);
-
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
         switch (item.getItemId()) {
-//            case R.id.action_mainmenu:
-//                startActivity(new Intent(this, MainActivity.class));
-//                return true;
-
-            case R.id.action_login:
-                startActivity(new Intent(this, LoginActivity.class));
-                return true;
-
-            case R.id.action_photoVideo:
-                startActivity(new Intent(this, PhotoVideoActivity.class));
-                return true;
-
-            case R.id.action_journal:
-                startActivity(new Intent(this, JournalActivity.class));
-                return true;
-
-            case R.id.action_people:
-                startActivity(new Intent(this, PeopleActivity.class));
-                return true;
-
-            case R.id.action_assignments:
-                startActivity(new Intent(this, AssignmentsActivity.class));
-                return true;
-
-            case R.id.action_viewpager:
-                startActivity(new Intent(this, ViewPagerActivity.class));
-                return true;
-
             case R.id.action_logout:
                 ParseUser.logOut();
                 finish();

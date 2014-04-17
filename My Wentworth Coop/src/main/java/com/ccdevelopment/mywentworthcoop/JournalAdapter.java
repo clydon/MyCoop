@@ -12,7 +12,7 @@ package com.ccdevelopment.mywentworthcoop;
         import android.widget.Switch;
         import android.widget.TextView;
 
-public class ListViewAdapter extends BaseAdapter {
+public class JournalAdapter extends BaseAdapter {
 
     // Declare Variables
     Context mContext;
@@ -20,8 +20,8 @@ public class ListViewAdapter extends BaseAdapter {
     private List<JournalPost> journalPostList = null;
     private ArrayList<JournalPost> arraylist;
 
-    public ListViewAdapter(Context context,
-                           List<JournalPost> journalPostList) {
+    public JournalAdapter(Context context,
+                          List<JournalPost> journalPostList) {
         mContext = context;
         this.journalPostList = journalPostList;
         inflater = LayoutInflater.from(mContext);
@@ -70,10 +70,10 @@ public class ListViewAdapter extends BaseAdapter {
         // Set the results into TextViews
         holder.title.setText(journalPostList.get(position).getTitle());
         holder.description.setText(journalPostList.get(position).getDescription()
-                .substring(0, Math.min(journalPostList.get(position).getDescription().toString().length(), 40)) + "...");
+                .substring(0, Math.min(journalPostList.get(position).getDescription().length(), 40)) + "...");
         holder.date.setText(journalPostList.get(position).getDate());
         //holder.isPrivate.setChecked(journalPostList.get(position).getIsPrivate());
-        String publicPrivate = journalPostList.get(position).getIsPrivate() == true ? "Private" : "Public";
+        String publicPrivate = journalPostList.get(position).getIsPrivate() ? "Private" : "Public";
         holder.username.setText(journalPostList.get(position).getUsername() + " [" + publicPrivate + "]");
 
 
@@ -142,10 +142,7 @@ public class ListViewAdapter extends BaseAdapter {
                                                         int whichButton) {
                                     }
                                 });
-                alert.show();*/ // todo make this shit work
-
-
-
+                alert.show();*/ // todo listviewitem onclick opens new alert dialog
             }
         });
 
