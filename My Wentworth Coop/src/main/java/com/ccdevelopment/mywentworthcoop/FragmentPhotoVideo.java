@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,7 +23,11 @@ import android.content.Context;
 
 import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.parse.DeleteCallback;
+import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseImageView;
@@ -34,30 +39,33 @@ import com.parse.SaveCallback;
 
 public class FragmentPhotoVideo extends Fragment {
 
-    View rootView;
+    ListView listView;
+    PictureAdapter adapter;
+
     View dialogView;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     byte[] snapshotByteArray;
     Bitmap snapshotBmp;
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (savedInstanceState == null){
+            // onCreate First Time
+        } else {
+            // onCreate Subsequent Time
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_photovideo, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_photovideo, container, false);
 
-        ParseQueryAdapter.QueryFactory<ParseObject> factory =
-                new ParseQueryAdapter.QueryFactory<ParseObject>() {
-                    public ParseQuery create() {
-                        ParseQuery query = new ParseQuery("Picture");
-                        query.orderByDescending("createdAt");
-                        return query;
-                    }
-                };
+        ParseObject.registerSubclass(Picture.class);
 
-        MyAdapter adapter = new MyAdapter(getActivity(), factory);
-        adapter.setTextKey("Title");
-        adapter.setImageKey("Photo");
-
-        ListView listView = (ListView) rootView.findViewById(R.id.listViewPhotos);
+        listView = (ListView) rootView.findViewById(R.id.listViewPhotos);
+        adapter = new PictureAdapter(getActivity(), new ArrayList<Picture>());
         listView.setAdapter(adapter);
 
         Button buttonCreateNewPhoto = (Button) rootView.findViewById(R.id.buttonAddNew);
@@ -68,7 +76,78 @@ public class FragmentPhotoVideo extends Fragment {
             }
         });
 
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> arg0, View view, int position, long id) {
+                final Picture picture = adapter.getItem(position);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Warning");
+                builder.setMessage("Are you sure you want to delete this?");
+
+                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        picture.deleteInBackground(new DeleteCallback() {
+                            public void done(ParseException e) {
+                                if (e == null) {
+                                    adapter.remove(picture);
+                                    getActivity().finish();
+                                    Intent myIntent = new Intent(getActivity(), ViewPagerActivity.class);
+                                    myIntent.putExtra("FirstTab", 0);
+                                    startActivity(myIntent);
+                                }
+                                else
+                                    Toast.makeText(getActivity(), "Something went wrong!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        dialog.dismiss();
+                    }
+                });
+                builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) { // Do nothing, User Cancelled Delete
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                if(picture.getUsername().equals(ParseUser.getCurrentUser().getUsername())) {
+                    alert.show();
+                }else{
+                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity());
+                    alertBuilder.setTitle("Warning");
+                    alertBuilder.setMessage("You can not delete a picture that you did not make yourself.");
+                    alertBuilder.setCancelable(false);
+                    alertBuilder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    });
+                    AlertDialog alertDialog = alertBuilder.create();
+                    alertDialog.show();
+                }
+
+                return true;
+            }
+        });
+
+        updateData();
         return rootView;
+    }
+
+    public void updateData() {
+        ParseQuery<Picture> query = ParseQuery.getQuery(Picture.class);
+        query.orderByDescending("updatedAt");
+
+        query.findInBackground(new FindCallback<Picture>() {
+            @Override
+            public void done(List<Picture> pictures, ParseException e) {
+                if (pictures != null){
+                    adapter.clear();
+                    adapter.addAll(pictures);
+                } else {
+                    Toast.makeText(getActivity(), "Something went wrong! Try again!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
     private void openNewPhotoDialog() {
@@ -141,18 +220,20 @@ public class FragmentPhotoVideo extends Fragment {
                             Toast.LENGTH_LONG).show();
                 }
                 else {
-                    ParseObject picObject = new ParseObject("Picture");
-                    picObject.put("Title", title);
-                    picObject.put("Author", ParseUser.getCurrentUser());
-                    picObject.put("username", ParseUser.getCurrentUser().getUsername());
-                    picObject.put("Photo", photoFile);
-                    picObject.saveInBackground(new SaveCallback() {
+                    final Picture picture = new Picture();
+
+                    picture.setTitle(title);
+                    picture.setUsername(ParseUser.getCurrentUser().getUsername());
+                    picture.setPhoto(photoFile);
+
+                    picture.saveInBackground(new SaveCallback() {
                         public void done(ParseException e) {
                             if (e == null) {
-                                getActivity().finish();
-                                Intent myIntent = new Intent(getActivity(), ViewPagerActivity.class);
-                                myIntent.putExtra("FirstTab", 0);
-                                startActivity(myIntent);
+                                adapter.insert(picture,0);
+//                                getActivity().finish();
+//                                Intent myIntent = new Intent(getActivity(), ViewPagerActivity.class);
+//                                myIntent.putExtra("FirstTab", 0);
+//                                startActivity(myIntent);
                             } else {
                                 Toast.makeText(getActivity(),"Something went wrong!",Toast.LENGTH_SHORT).show();
                             }
@@ -161,38 +242,5 @@ public class FragmentPhotoVideo extends Fragment {
                 }
             }
         });
-    }
-
-    private class MyAdapter extends ParseQueryAdapter<ParseObject> {
-
-        private Context context;
-
-        public MyAdapter(Context context, com.parse.ParseQueryAdapter.QueryFactory<ParseObject> queryFactory) {
-            super(context, queryFactory);
-            this.context = context;
-        }
-
-        @Override
-        public View getItemView(ParseObject object, View v, ViewGroup parent) {
-            if (v == null) {
-                v = View.inflate(this.context, R.layout.photo_row_item, null);
-            }
-            TextView titleView = (TextView) v.findViewById(R.id.textViewTitle);
-            titleView.setText(object.get("Title").toString());
-
-            TextView dateView = (TextView) v.findViewById(R.id.textViewDate);
-            dateView.setText(new SimpleDateFormat("MMM d, h:mm").format(object.getUpdatedAt()));
-
-            TextView authorView = (TextView) v.findViewById(R.id.textViewAuthor);
-            authorView.setText(object.get("username").toString());
-
-            ParseImageView imageView = (ParseImageView)v.findViewById(R.id.imageView);
-            ParseFile file = object.getParseFile("Photo");
-            if(file != null) {
-                imageView.setParseFile(file);
-                imageView.loadInBackground();
-            }
-            return v;
-        }
     }
 }

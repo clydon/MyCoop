@@ -95,7 +95,7 @@ public class FragmentJournal extends Fragment {
                 }else{
                     AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity());
                     alertBuilder.setTitle("Warning");
-                    alertBuilder.setMessage("You can not delete a post that you did not make yourself.");
+                    alertBuilder.setMessage("You can not delete a journal post that you did not make yourself.");
                     alertBuilder.setCancelable(false);
                     alertBuilder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -139,11 +139,10 @@ public class FragmentJournal extends Fragment {
                                             public void done(ParseException e) {
                                                 if (e == null) {
                                                     adapter.insert(journalPost, 0);
-                                                    //delete below
-                                                    getActivity().finish();
-                                                    Intent myIntent = new Intent(getActivity(), ViewPagerActivity.class);
-                                                    myIntent.putExtra("FirstTab", 1);
-                                                    startActivity(myIntent);
+//                                                    getActivity().finish();
+//                                                    Intent myIntent = new Intent(getActivity(), ViewPagerActivity.class);
+//                                                    myIntent.putExtra("FirstTab", 1);
+//                                                    startActivity(myIntent);
                                                 } else
                                                     Toast.makeText(getActivity(), "Something went wrong!", Toast.LENGTH_SHORT).show();
                                             }
@@ -164,7 +163,7 @@ public class FragmentJournal extends Fragment {
                 else{
                     AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity());
                     alertBuilder.setTitle("Warning");
-                    alertBuilder.setMessage("You can not edit a post that you did not make yourself.");
+                    alertBuilder.setMessage("You can not edit a journal post that you did not make yourself.");
                     alertBuilder.setCancelable(false);
                     alertBuilder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -197,7 +196,6 @@ public class FragmentJournal extends Fragment {
                 .setPositiveButton("Save",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                ParseObject post = new ParseObject("Post");
                                 final JournalPost journalPost = new JournalPost();
                                 journalPost.setTitle(input1.getText().toString());
                                 journalPost.setDescription(input2.getText().toString());
@@ -205,15 +203,14 @@ public class FragmentJournal extends Fragment {
                                 journalPost.setUsername(ParseUser.getCurrentUser().getUsername());
 
                                 // Save the post and return
-                                post.saveInBackground(new SaveCallback() {
+                                journalPost.saveInBackground(new SaveCallback() {
                                     public void done(ParseException e) {
                                         if (e == null) {
                                             adapter.insert(journalPost,0);
-                                            //delete below
-                                            getActivity().finish();
-                                            Intent myIntent = new Intent(getActivity(), ViewPagerActivity.class);
-                                            myIntent.putExtra("FirstTab", 1);
-                                            startActivity(myIntent);
+//                                            getActivity().finish();
+//                                            Intent myIntent = new Intent(getActivity(), ViewPagerActivity.class);
+//                                            myIntent.putExtra("FirstTab", 1);
+//                                            startActivity(myIntent);
                                         } else
                                             Toast.makeText(getActivity(),"Something went wrong!",Toast.LENGTH_SHORT).show();
                                     }

@@ -3,7 +3,6 @@ package com.ccdevelopment.mywentworthcoop;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Fragment;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Paint;
