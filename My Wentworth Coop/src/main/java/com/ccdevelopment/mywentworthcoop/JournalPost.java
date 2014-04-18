@@ -1,27 +1,32 @@
 package com.ccdevelopment.mywentworthcoop;
 
-public class JournalPost {
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
 
-    private String title;
-    private String description;
+@ParseClassName("Post")
+public class JournalPost extends ParseObject{
+
+    public JournalPost(){
+
+    }
+
     private String date;
-    private String user;
-    private Boolean isPrivate;
+
 
     public String getTitle() {
-        return title;
+        return getString("Title");
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        put("Title", title);
     }
 
     public String getDescription() {
-        return description;
+        return getString("Message");
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        put("Message", description);
     }
 
     public String getDate() {
@@ -32,19 +37,20 @@ public class JournalPost {
         this.date = date;
     }
 
-    public Boolean getIsPrivate() {
-        return isPrivate;
+    public boolean getIsPrivate(){
+        return getBoolean("isPrivate");
     }
 
-    public void setIsPrivate(Boolean isPrivate) {
-        this.isPrivate = isPrivate;
+    public void setIsPrivate(boolean isPrivate){
+        put("isPrivate", isPrivate);
     }
 
-    public String getUsername() {
-        return user;
+    public void setUsername(String currentUsername){
+        put("username", currentUsername);
     }
 
-    public void setUsername(String user) {
-        this.user = user;
+    public String getUsername(){
+        return getString("username");
     }
+
 }

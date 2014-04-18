@@ -39,7 +39,6 @@ public class FragmentAssignments extends Fragment {
     EditText mAssignmentInput;
     ListView mListView;
     AssignmentAdapter mAdapter;
-    ProgressDialog mProgressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -180,12 +179,6 @@ public class FragmentAssignments extends Fragment {
     }
 
     public void updateData(){
-        mProgressDialog = new ProgressDialog(getActivity());
-        mProgressDialog.setTitle("MyCo-Op Assignments");
-        mProgressDialog.setMessage("Loading...");
-        mProgressDialog.setIndeterminate(false);
-        //mProgressDialog.show(); todo remove excess code involving progress dialog
-
         ParseQuery<Assignment> publicQuery = ParseQuery.getQuery(Assignment.class);
         ParseQuery<Assignment> privateQuery = ParseQuery.getQuery(Assignment.class);
 
@@ -202,12 +195,10 @@ public class FragmentAssignments extends Fragment {
             @Override
             public void done(List<Assignment> assignments, ParseException error) {
                 if(assignments != null){
-                    mProgressDialog.dismiss();
                     mAdapter.clear();
                     mAdapter.addAll(assignments);
                 }
                 else{
-                    mProgressDialog.dismiss();
                     Toast.makeText(getActivity(),"Something went wrong! Try again!",Toast.LENGTH_SHORT).show();
                 }
             }
@@ -225,7 +216,6 @@ public class FragmentAssignments extends Fragment {
                 try {
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
                     utilDate = formatter.parse(date);
-                    Toast.makeText(getActivity(), utilDate.toString(), Toast.LENGTH_SHORT).show();
                     saveAssignment(utilDate);
                 } catch (java.text.ParseException e) {
                     e.printStackTrace();
