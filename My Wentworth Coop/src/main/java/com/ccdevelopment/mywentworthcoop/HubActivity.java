@@ -2,15 +2,27 @@ package com.ccdevelopment.mywentworthcoop;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Toast;
 
+import com.parse.CountCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 
 public class HubActivity extends Activity {
@@ -34,15 +46,62 @@ public class HubActivity extends Activity {
     }
 
     private void loadWebViews() {
-        WebView viewPhotoVideo = (WebView) this.findViewById(R.id.webViewPhotoVideo);
-        WebView viewJournal = (WebView) this.findViewById(R.id.webViewJournal);
-        WebView viewPeople = (WebView) this.findViewById(R.id.webViewPeople);
-        WebView viewAssignments = (WebView) this.findViewById(R.id.webViewAssignments);
+        final WebView viewPhotoVideo = (WebView) this.findViewById(R.id.webViewPhotoVideo);
+        final WebView viewJournal = (WebView) this.findViewById(R.id.webViewJournal);
+        final WebView viewPeople = (WebView) this.findViewById(R.id.webViewPeople);
+        final WebView viewAssignments = (WebView) this.findViewById(R.id.webViewAssignments);
 
-        viewPhotoVideo.loadUrl("file:///android_asset/index1.html");
-        viewJournal.loadUrl("file:///android_asset/index2.html");
-        viewPeople.loadUrl("file:///android_asset/index3.html");
-        viewAssignments.loadUrl("file:///android_asset/index4.html");
+
+        viewPhotoVideo.getSettings().setJavaScriptEnabled(true);
+        viewJournal.getSettings().setJavaScriptEnabled(true);
+        viewPeople.getSettings().setJavaScriptEnabled(true);
+        viewAssignments.getSettings().setJavaScriptEnabled(true);
+
+        ParseQuery<ParseObject> photoQuery = ParseQuery.getQuery("Picture");
+        photoQuery.whereEqualTo("Author", ParseUser.getCurrentUser());
+        photoQuery.countInBackground(new CountCallback() {
+            public void done(int count, ParseException e) {
+                if (e == null) {
+                    viewPhotoVideo.loadUrl("file:///android_asset/index1.html?count=" + count);
+                } else {
+                    viewPhotoVideo.loadUrl("file:///android_asset/index1.html?count=-1");
+                }
+            }
+        });
+        ParseQuery<ParseObject> journalQuery = ParseQuery.getQuery("Post");
+        journalQuery.whereEqualTo("user", ParseUser.getCurrentUser());
+        journalQuery.countInBackground(new CountCallback() {
+            public void done(int count, ParseException e) {
+                if (e == null) {
+                    viewJournal.loadUrl("file:///android_asset/index2.html?count="+count);
+                }else{
+                    viewJournal.loadUrl("file:///android_asset/index2.html?count=-1");
+                }
+            }
+        });
+        ParseQuery<ParseObject> contactQuery = ParseQuery.getQuery("Contact");
+        contactQuery.whereEqualTo("user", ParseUser.getCurrentUser());
+        contactQuery.countInBackground(new CountCallback() {
+            public void done(int count, ParseException e) {
+                if (e == null) {
+                    viewPeople.loadUrl("file:///android_asset/index3.html?count="+count);
+                }else{
+                    viewPeople.loadUrl("file:///android_asset/index3.html?count=-1");
+                }
+            }
+        }); //todo
+
+        ParseQuery<ParseObject> assignmentQuery = ParseQuery.getQuery("Assignment");
+        assignmentQuery.whereEqualTo("username", ParseUser.getCurrentUser().getUsername());
+        assignmentQuery.countInBackground(new CountCallback() {
+            public void done(int count, ParseException e) {
+                if (e == null) {
+                    viewAssignments.loadUrl("file:///android_asset/index4.html?count="+count);
+                }else{
+                    viewAssignments.loadUrl("file:///android_asset/index4.html?count=-1");
+                }
+            }
+        });
 
         final int longPressTime = 500;
 
