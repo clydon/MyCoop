@@ -139,10 +139,10 @@ public class FragmentJournal extends Fragment {
                                             public void done(ParseException e) {
                                                 if (e == null) {
                                                     adapter.insert(journalPost, 0);
-//                                                    getActivity().finish();
-//                                                    Intent myIntent = new Intent(getActivity(), ViewPagerActivity.class);
-//                                                    myIntent.putExtra("FirstTab", 1);
-//                                                    startActivity(myIntent);
+                                                    getActivity().finish();
+                                                    Intent myIntent = new Intent(getActivity(), ViewPagerActivity.class);
+                                                    myIntent.putExtra("FirstTab", 1);
+                                                    startActivity(myIntent);
                                                 } else
                                                     Toast.makeText(getActivity(), "Something went wrong!", Toast.LENGTH_SHORT).show();
                                             }

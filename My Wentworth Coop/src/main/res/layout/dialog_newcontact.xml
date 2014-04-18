@@ -9,35 +9,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Title:"
-        android:id="@+id/textViewTitle" />
-
+        android:text="Name:"
+        android:id="@+id/textViewName" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textCapWords"
-        android:id="@+id/editText" />
+        android:id="@+id/editTextName" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Message:"
-        android:id="@+id/textView2" />
-
+        android:text="Email:"
+        android:id="@+id/textViewEmail" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine|textCapSentences"
-        android:ems="10"
-        android:id="@+id/editText2"
-        android:layout_weight="0.20" />
+        android:inputType="textEmailAddress"
+        android:id="@+id/editTextEmail" />
 
-    <Switch
-        android:layout_width="fill_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Private Post:"
-        android:id="@+id/switchPrivate"
-        android:checked="true" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Phone Number:"
+        android:id="@+id/textViewPhone" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:id="@+id/editTextPhone" />
+
 
 </LinearLayout>

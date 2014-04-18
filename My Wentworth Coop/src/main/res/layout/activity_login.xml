@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#0f0f0f"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:paddingLeft="30dp">
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/coopportunity"
+        android:padding="@dimen/activity_vertical_margin" />
 
     <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF">
+
+        <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        >
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,18 +58,21 @@
             android:layout_margin="30dp"/>
     </LinearLayout>
 
+    </LinearLayout>
     <Button
         android:id="@+id/buttonLogin"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/button_login"
+        android:background="#F0F0F0"
         android:layout_gravity="center" >
     </Button>
     <Button
         android:id="@+id/buttonSignUp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/button_signup"
+        android:background="#F0F0F0"
         android:layout_gravity="center" >
     </Button>
 </LinearLayout>

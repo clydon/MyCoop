@@ -2,13 +2,11 @@ package com.ccdevelopment.mywentworthcoop;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Toast;
 
@@ -17,13 +15,6 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-
 
 public class HubActivity extends Activity {
 
@@ -58,7 +49,7 @@ public class HubActivity extends Activity {
         viewAssignments.getSettings().setJavaScriptEnabled(true);
 
         ParseQuery<ParseObject> photoQuery = ParseQuery.getQuery("Picture");
-        photoQuery.whereEqualTo("Author", ParseUser.getCurrentUser());
+        photoQuery.whereEqualTo("username", ParseUser.getCurrentUser().getUsername());
         photoQuery.countInBackground(new CountCallback() {
             public void done(int count, ParseException e) {
                 if (e == null) {
@@ -68,8 +59,9 @@ public class HubActivity extends Activity {
                 }
             }
         });
+
         ParseQuery<ParseObject> journalQuery = ParseQuery.getQuery("Post");
-        journalQuery.whereEqualTo("user", ParseUser.getCurrentUser());
+        journalQuery.whereEqualTo("username", ParseUser.getCurrentUser().getUsername());
         journalQuery.countInBackground(new CountCallback() {
             public void done(int count, ParseException e) {
                 if (e == null) {
@@ -79,8 +71,9 @@ public class HubActivity extends Activity {
                 }
             }
         });
+
         ParseQuery<ParseObject> contactQuery = ParseQuery.getQuery("Contact");
-        contactQuery.whereEqualTo("user", ParseUser.getCurrentUser());
+        contactQuery.whereEqualTo("username", ParseUser.getCurrentUser().getUsername());
         contactQuery.countInBackground(new CountCallback() {
             public void done(int count, ParseException e) {
                 if (e == null) {
@@ -89,7 +82,7 @@ public class HubActivity extends Activity {
                     viewPeople.loadUrl("file:///android_asset/index3.html?count=-1");
                 }
             }
-        }); //todo
+        });
 
         ParseQuery<ParseObject> assignmentQuery = ParseQuery.getQuery("Assignment");
         assignmentQuery.whereEqualTo("username", ParseUser.getCurrentUser().getUsername());
